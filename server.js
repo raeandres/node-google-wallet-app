@@ -245,7 +245,7 @@ function createJWT(payload) {
     origins: [
       'http://localhost:3000', 
       'http://192.168.0.118:3000',
-      'https://your-domain.com'
+      'https://node-google-wallet-app.vercel.app/'
     ],
     typ: 'savetowallet',
     payload: payload
