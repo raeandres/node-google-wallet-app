@@ -302,13 +302,19 @@ app.post('/create-pass', async (req, res) => {
   }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on:`);
-  console.log(`  - Local:   http://localhost:${PORT}`);
-  console.log(`  - Network: http://192.168.0.118:${PORT}`);
-  console.log('');
-  console.log('Make sure to set your environment variables:');
-  console.log('- ISSUER_ID');
-  console.log('- SERVICE_ACCOUNT_EMAIL');
-  console.log('- PRIVATE_KEY');
-});
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on:`);
+    console.log(`  - Local:   http://localhost:${PORT}`);
+    console.log(`  - Network: http://192.168.0.118:${PORT}`);
+    console.log('');
+    console.log('Make sure to set your environment variables:');
+    console.log('- ISSUER_ID');
+    console.log('- SERVICE_ACCOUNT_EMAIL');
+    console.log('- PRIVATE_KEY');
+  });
+}
+
+// Export for Vercel
+module.exports = app;

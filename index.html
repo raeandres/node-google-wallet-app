@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Door PH - Google Wallet Pass</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Digital Door PH</h1>
+            <p>Create your digital guest pass</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Pass Preview -->
+            <div class="pass-preview">
+                <div class="pass-card" id="passCard">
+                    <div class="pass-header">
+                        <img src="https://storage.googleapis.com/wallet-lab-tools-codelab-artifacts-public/pass_google_logo.jpg" alt="Logo" class="logo">
+                        <div class="pass-title">
+                            <h2>Digital Door PH</h2>
+                            <p class="subheader" id="previewSubheader">Guest</p>
+                        </div>
+                    </div>
+                    
+                    <div class="guest-name" id="previewGuestName">Guest Name</div>
+                    
+                    <div class="pass-details">
+                        <div class="detail-row">
+                            <div class="detail-item">
+                                <span class="label">Unit</span>
+                                <span class="value" id="previewUnit">N/A</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Room</span>
+                                <span class="value" id="previewRoom">N/A</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-item">
+                                <span class="label">Check-in</span>
+                                <span class="value" id="previewCheckIn">N/A</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Check-out</span>
+                                <span class="value" id="previewCheckOut">N/A</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-item">
+                                <span class="label">Check-out</span>
+                                <span class="value" id="previewCheckOut">N/A</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Parking</span>
+                                <span class="value" id="previewParking">N/A</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-item">
+                                <span class="label">Companions</span>
+                                <span class="value" id="previewCompanions">0</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Pet</span>
+                                <span class="value" id="previewPet">NO</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-item">
+                                <span class="label">Amenities</span>
+                                <span class="value" id="previewAmenities">NO</span>
+                            </div>
+                            <div class="detail-item">
+                                <!-- Empty for spacing -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="barcode-section">
+                        <div class="qr-placeholder">
+                            <div class="qr-code">QR</div>
+                        </div>
+                        <p class="barcode-text">Please show this to concierge</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="form-section">
+                <form id="passForm">
+                    <div class="form-group">
+                        <label for="guestName">Guest Name *</label>
+                        <input type="text" id="guestName" name="guestName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guestType">Guest Type</label>
+                        <select id="guestType" name="guestType">
+                            <option value="Guest">Guest</option>
+                            <option value="VIP Guest">VIP Guest</option>
+                            <option value="Business Guest">Business Guest</option>
+                            <option value="Family Guest">Family Guest</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="companions">Number of Companions</label>
+                        <input type="number" id="companions" name="companions" min="0" max="10" value="0" placeholder="0">
+                        <small class="form-help">Additional guests accompanying the main guest</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="unit">Unit Name</label>
+                            <input type="text" id="unit" name="unit" placeholder="e.g., Tower A, Building 1">
+                        </div>
+                        <div class="form-group">
+                            <label for="room">Room Number *</label>
+                            <input type="text" id="room" name="room" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="parking">Parking Slot</label>
+                            <input type="text" id="parking" name="parking" placeholder="e.g., B3-17">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="checkIn">Check-in Date *</label>
+                            <input type="date" id="checkIn" name="checkIn" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkOut">Check-out Date *</label>
+                            <input type="date" id="checkOut" name="checkOut" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet">Pet Allowed</label>
+                            <select id="pet" name="pet">
+                                <option value="NO">No</option>
+                                <option value="YES">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="amenities">Amenities Access</label>
+                            <select id="amenities" name="amenities">
+                                <option value="NO">No</option>
+                                <option value="YES">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="barcodeValue">Barcode Value (Optional)</label>
+                        <input type="text" id="barcodeValue" name="barcodeValue" placeholder="Auto-generated if empty">
+                    </div>
+
+                    <button type="submit" class="create-pass-btn">
+                        <span class="btn-text">Create Google Wallet Pass</span>
+                        <span class="loading" style="display: none;">Creating...</span>
+                    </button>
+                </form>
+
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
