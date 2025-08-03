@@ -60,6 +60,27 @@ PORT=3000
 
 ### 5. Running the Application
 
+#### Option A: Using Docker (Recommended)
+
+```bash
+# Quick setup
+./docker-setup.sh
+
+# Start in production mode
+make up
+
+# Start in development mode (with hot reload)
+make dev-up
+
+# View logs
+make logs
+
+# Stop the application
+make down
+```
+
+#### Option B: Using Node.js directly
+
 ```bash
 # Development mode (with auto-restart)
 npm run dev
@@ -69,6 +90,20 @@ npm start
 ```
 
 The app will be available at `http://localhost:3000`
+
+## Docker Commands
+
+| Command | Description |
+|---------|-------------|
+| `make build` | Build production Docker image |
+| `make up` | Start production container |
+| `make down` | Stop containers |
+| `make logs` | View container logs |
+| `make dev-up` | Start development container |
+| `make dev-down` | Stop development container |
+| `make shell` | Access container shell |
+| `make clean` | Remove all containers and images |
+| `make help` | Show all available commands |
 
 ## Usage
 

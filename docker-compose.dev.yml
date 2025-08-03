@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  google-wallet-app-dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: google-wallet-app-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    env_file:
+      - .env
+    volumes:
+      # Mount source code for hot reloading
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
+    networks:
+      - wallet-network-dev
+    command: npm run dev
+
+networks:
+  wallet-network-dev:
+    driver: bridge
