@@ -14,7 +14,7 @@ function createGenericObject(userData) {
     id: objectId,
     classId: `${ISSUER_ID}.digital_door_pass`,
     genericType: 'GENERIC_TYPE_UNSPECIFIED',
-    hexBackgroundColor: '#4285f4',
+    hexBackgroundColor: '#518849',
     logo: {
       sourceUri: {
         uri: 'https://storage.googleapis.com/wallet-lab-tools-codelab-artifacts-public/pass_google_logo.jpg'
