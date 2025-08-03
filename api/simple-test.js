@@ -8,11 +8,11 @@ export default function handler(req, res) {
   
   const userData = req.body;
   
-  // Simple validation
-  if (!userData || !userData.guestName || !userData.unitName) {
+  // Simple validation - using correct field names
+  if (!userData || !userData.guestName || !userData.room) {
     return res.status(400).json({
       success: false,
-      error: 'Missing required fields',
+      error: 'Missing required fields: guestName and room are required',
       received: userData,
       timestamp: new Date().toISOString()
     });

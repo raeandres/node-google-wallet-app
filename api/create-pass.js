@@ -48,12 +48,12 @@ function createGenericObject(userData) {
       {
         id: 'unit',
         header: 'Unit',
-        body: userData.unitName || 'N/A'
+        body: userData.unit || 'N/A'
       },
       {
         id: 'room',
         header: 'Room',
-        body: userData.roomNumber || 'N/A'
+        body: userData.room || 'N/A'
       },
       {
         id: 'checkin',
@@ -68,22 +68,27 @@ function createGenericObject(userData) {
       {
         id: 'parking',
         header: 'Parking',
-        body: userData.parkingSlot || 'Not assigned'
+        body: userData.parking || 'Not assigned'
+      },
+      {
+        id: 'companions',
+        header: 'Companions',
+        body: userData.companions || '0'
       },
       {
         id: 'pets',
         header: 'Pets Allowed',
-        body: userData.petsAllowed ? 'Yes' : 'No'
+        body: userData.pet || 'No'
       },
       {
         id: 'amenities',
         header: 'Amenities Access',
-        body: userData.amenitiesAccess ? 'Yes' : 'No'
+        body: userData.amenities || 'No'
       }
     ],
     barcode: {
       type: 'QR_CODE',
-      value: `GUEST:${userData.guestName}:UNIT:${userData.unitName}:${Date.now()}`,
+      value: userData.barcodeValue || `GUEST:${userData.guestName}:ROOM:${userData.room}:${Date.now()}`,
       alternateText: userData.guestName || 'Guest Pass'
     },
     heroImage: {
@@ -163,9 +168,9 @@ export default async function handler(req, res) {
       throw new Error('Invalid request body. Expected JSON object.');
     }
     
-    if (!userData.guestName || !userData.unitName) {
-      console.log('❌ Missing fields - guestName:', userData.guestName, 'unitName:', userData.unitName);
-      throw new Error('Missing required fields: guestName and unitName are required');
+    if (!userData.guestName || !userData.room) {
+      console.log('❌ Missing fields - guestName:', userData.guestName, 'room:', userData.room);
+      throw new Error('Missing required fields: guestName and room are required');
     }
     
     // Create the generic object

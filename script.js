@@ -83,25 +83,38 @@ document.addEventListener('DOMContentLoaded', function() {
         resultDiv.style.display = 'none';
         
         try {
-            // Collect form data - simplified approach
+            // Collect form data - using correct IDs from HTML
             const userData = {
                 guestName: document.getElementById('guestName').value,
                 guestType: document.getElementById('guestType').value,
-                unitName: document.getElementById('unitName').value,
-                roomNumber: document.getElementById('roomNumber').value,
+                companions: document.getElementById('companions').value,
+                unit: document.getElementById('unit').value,
+                room: document.getElementById('room').value,
+                parking: document.getElementById('parking').value,
                 checkIn: document.getElementById('checkIn').value,
                 checkOut: document.getElementById('checkOut').value,
-                parkingSlot: document.getElementById('parkingSlot').value,
-                barcodeValue: document.getElementById('barcodeValue').value,
-                petsAllowed: document.getElementById('petsAllowed').checked,
-                amenitiesAccess: document.getElementById('amenitiesAccess').checked
+                pet: document.getElementById('pet').value,
+                amenities: document.getElementById('amenities').value,
+                barcodeValue: document.getElementById('barcodeValue').value
             };
+            
+            console.log('=== DEBUGGING FORM DATA ===');
+            console.log('Raw form elements:');
+            console.log('guestName element:', document.getElementById('guestName'));
+            console.log('guestName value:', document.getElementById('guestName')?.value);
+            console.log('unit element:', document.getElementById('unit'));
+            console.log('unit value:', document.getElementById('unit')?.value);
+            console.log('room element:', document.getElementById('room'));
+            console.log('room value:', document.getElementById('room')?.value);
+            console.log('Full userData object:', userData);
+            console.log('JSON stringified:', JSON.stringify(userData));
+            console.log('=== END DEBUGGING ===');
             
             console.log('Sending user data:', userData);
             
             // Validate required fields on client side
-            if (!userData.guestName || !userData.unitName) {
-                throw new Error('Please fill in Guest Name and Unit Name fields');
+            if (!userData.guestName || !userData.room) {
+                throw new Error('Please fill in Guest Name and Room Number fields');
             }
             
             // Test simple endpoint first (without JWT creation)
