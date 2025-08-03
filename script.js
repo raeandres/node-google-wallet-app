@@ -71,36 +71,53 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const submitBtn = form.querySelector('.submit-btn');
+        const submitBtn = form.querySelector('.create-pass-btn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const loading = submitBtn.querySelector('.loading');
         const resultDiv = document.getElementById('result');
         
         // Show loading state
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Creating Pass...';
+        btnText.style.display = 'none';
+        loading.style.display = 'inline';
         resultDiv.style.display = 'none';
         
         try {
-            // Collect form data
-            const formData = new FormData(form);
-            const userData = {};
-            
-            for (let [key, value] of formData.entries()) {
-                if (key === 'petsAllowed' || key === 'amenitiesAccess') {
-                    userData[key] = value === 'on';
-                } else {
-                    userData[key] = value || '';
-                }
-            }
-            
-            // Handle checkboxes that might not be in FormData if unchecked
-            userData.petsAllowed = form.querySelector('#petsAllowed').checked;
-            userData.amenitiesAccess = form.querySelector('#amenitiesAccess').checked;
+            // Collect form data - simplified approach
+            const userData = {
+                guestName: document.getElementById('guestName').value,
+                guestType: document.getElementById('guestType').value,
+                unitName: document.getElementById('unitName').value,
+                roomNumber: document.getElementById('roomNumber').value,
+                checkIn: document.getElementById('checkIn').value,
+                checkOut: document.getElementById('checkOut').value,
+                parkingSlot: document.getElementById('parkingSlot').value,
+                barcodeValue: document.getElementById('barcodeValue').value,
+                petsAllowed: document.getElementById('petsAllowed').checked,
+                amenitiesAccess: document.getElementById('amenitiesAccess').checked
+            };
             
             console.log('Sending user data:', userData);
             
             // Validate required fields on client side
             if (!userData.guestName || !userData.unitName) {
                 throw new Error('Please fill in Guest Name and Unit Name fields');
+            }
+            
+            // Test simple endpoint first (without JWT creation)
+            console.log('Testing simple endpoint...');
+            const simpleResponse = await fetch('/api/simple-test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            });
+            const simpleResult = await simpleResponse.json();
+            console.log('Simple test response:', simpleResult);
+            
+            if (!simpleResult.success) {
+                throw new Error(`Simple test failed: ${simpleResult.error}`);
             }
             
             // Format dates for the pass
@@ -169,7 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             // Reset button state
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Create Google Wallet Pass';
+            btnText.style.display = 'inline';
+            loading.style.display = 'none';
             resultDiv.style.display = 'block';
         }
     });
