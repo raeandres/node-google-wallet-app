@@ -12,7 +12,7 @@ function createGenericObject(userData) {
   
   return {
     id: objectId,
-    classId: `${ISSUER_ID}.hotel_guest_pass_class`,
+    classId: `${ISSUER_ID}.digital_door_pass`,
     genericType: 'GENERIC_TYPE_UNSPECIFIED',
     hexBackgroundColor: '#4285f4',
     logo: {
