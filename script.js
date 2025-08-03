@@ -71,14 +71,12 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const submitBtn = form.querySelector('.create-pass-btn');
-        const btnText = submitBtn.querySelector('.btn-text');
-        const loading = submitBtn.querySelector('.loading');
+        const submitBtn = form.querySelector('.submit-btn');
+        const resultDiv = document.getElementById('result');
         
         // Show loading state
         submitBtn.disabled = true;
-        btnText.style.display = 'none';
-        loading.style.display = 'inline';
+        submitBtn.textContent = 'Creating Pass...';
         resultDiv.style.display = 'none';
         
         try {
@@ -87,7 +85,22 @@ document.addEventListener('DOMContentLoaded', function() {
             const userData = {};
             
             for (let [key, value] of formData.entries()) {
-                userData[key] = value;
+                if (key === 'petsAllowed' || key === 'amenitiesAccess') {
+                    userData[key] = value === 'on';
+                } else {
+                    userData[key] = value || '';
+                }
+            }
+            
+            // Handle checkboxes that might not be in FormData if unchecked
+            userData.petsAllowed = form.querySelector('#petsAllowed').checked;
+            userData.amenitiesAccess = form.querySelector('#amenitiesAccess').checked;
+            
+            console.log('Sending user data:', userData);
+            
+            // Validate required fields on client side
+            if (!userData.guestName || !userData.unitName) {
+                throw new Error('Please fill in Guest Name and Unit Name fields');
             }
             
             // Format dates for the pass
@@ -156,8 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             // Reset button state
             submitBtn.disabled = false;
-            btnText.style.display = 'inline';
-            loading.style.display = 'none';
+            submitBtn.textContent = 'Create Google Wallet Pass';
             resultDiv.style.display = 'block';
         }
     });

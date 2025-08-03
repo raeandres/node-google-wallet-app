@@ -154,9 +154,17 @@ export default async function handler(req, res) {
     }
 
     const userData = req.body;
+    console.log('📋 Raw request body:', JSON.stringify(req.body, null, 2));
+    console.log('📋 User data type:', typeof userData);
+    console.log('📋 User data keys:', userData ? Object.keys(userData) : 'No keys');
     
     // Validate required fields
-    if (!userData || !userData.guestName || !userData.unitName) {
+    if (!userData || typeof userData !== 'object') {
+      throw new Error('Invalid request body. Expected JSON object.');
+    }
+    
+    if (!userData.guestName || !userData.unitName) {
+      console.log('❌ Missing fields - guestName:', userData.guestName, 'unitName:', userData.unitName);
       throw new Error('Missing required fields: guestName and unitName are required');
     }
     
