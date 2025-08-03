@@ -29,7 +29,7 @@ function createGenericObject(userData) {
     cardTitle: {
       defaultValue: {
         language: 'en-US',
-        value: 'Hotel Guest Pass'
+        value: 'Digital Door PH'
       }
     },
     subheader: {
@@ -89,19 +89,19 @@ function createGenericObject(userData) {
     barcode: {
       type: 'QR_CODE',
       value: userData.barcodeValue || `GUEST:${userData.guestName}:ROOM:${userData.room}:${Date.now()}`,
-      alternateText: userData.guestName || 'Guest Pass'
-    },
-    heroImage: {
-      sourceUri: {
-        uri: 'https://storage.googleapis.com/wallet-lab-tools-codelab-artifacts-public/google-io-hero-demo-only.jpg'
-      },
-      contentDescription: {
-        defaultValue: {
-          language: 'en-US',
-          value: 'Hotel Image'
-        }
-      }
+      alternateText: 'Please show this to concierge'
     }
+    // heroImage: {
+    //   sourceUri: {
+    //     uri: 'https://storage.googleapis.com/wallet-lab-tools-codelab-artifacts-public/google-io-hero-demo-only.jpg'
+    //   },
+    //   contentDescription: {
+    //     defaultValue: {
+    //       language: 'en-US',
+    //       value: 'Hotel Image'
+    //     }
+    //   }
+    // }
   };
 }
 
